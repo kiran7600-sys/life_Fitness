@@ -1,21 +1,7 @@
 import type { Metadata } from "next";
-import { Montserrat, Inter } from "next/font/google";
 import Script from "next/script";
+import SmoothScroll from "@/components/SmoothScroll";
 import "./globals.css";
-
-const montserrat = Montserrat({
-  subsets: ["latin"],
-  variable: "--font-montserrat",
-  weight: ["700", "800", "900"],
-  display: "swap",
-});
-
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-  weight: ["400", "500", "600", "700"],
-  display: "swap",
-});
 
 export const metadata: Metadata = {
   title: "Life Fitness Pro | Premium Gym & Fitness Center in Prahladnagar, Ahmedabad",
@@ -92,9 +78,14 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="en" className="scroll-smooth">
-      <body className={`${montserrat.variable} ${inter.variable} antialiased bg-black text-off-white font-sans`}>
-        {children}
+    <html lang="en">
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet" />
+      </head>
+      <body className="antialiased bg-black text-off-white font-sans">
+        <SmoothScroll>{children}</SmoothScroll>
         <Script
           id="local-business-schema"
           type="application/ld+json"

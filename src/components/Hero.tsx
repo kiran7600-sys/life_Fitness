@@ -2,16 +2,49 @@
 
 import { useEffect, useRef } from "react";
 import { ChevronDown, Play } from "lucide-react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
+import { gsap } from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+// Register ScrollTrigger
+gsap.registerPlugin(ScrollTrigger);
 
 export default function Hero() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const videoWrapperRef = useRef<HTMLDivElement>(null);
+  const textRef = useRef<HTMLDivElement>(null);
 
-  const { scrollY } = useScroll();
-  // GPU-optimized parallax transform
-  const textY = useTransform(scrollY, [0, 600], [0, 180]);
-  const opacity = useTransform(scrollY, [0, 500], [1, 0]);
+  // Synchronized GSAP ScrollTrigger for Parallax and Zoom
+  useGSAP(() => {
+    if (!containerRef.current) return;
+
+    // Zoom/parallax effect on background video
+    gsap.to(videoWrapperRef.current, {
+      scale: 1.15,
+      yPercent: 8,
+      opacity: 0.4,
+      scrollTrigger: {
+        trigger: containerRef.current,
+        start: "top top",
+        end: "bottom top",
+        scrub: true,
+      },
+    });
+
+    // Parallax translation and fade on hero content
+    gsap.to(textRef.current, {
+      y: 120,
+      opacity: 0,
+      scrollTrigger: {
+        trigger: containerRef.current,
+        start: "top top",
+        end: "bottom 40%",
+        scrub: true,
+      },
+    });
+  }, { scope: containerRef });
 
   useEffect(() => {
     // Intersection Observer to lazy-play video only when visible in the viewport
@@ -58,7 +91,7 @@ export default function Hero() {
       </div>
 
       {/* Hero Video / Poster Wrapper */}
-      <div className="absolute inset-0 w-full h-full z-0">
+      <div ref={videoWrapperRef} className="absolute inset-0 w-full h-full z-0">
         <video
           ref={videoRef}
           className="w-full h-full object-cover opacity-75"
@@ -77,8 +110,8 @@ export default function Hero() {
       </div>
 
       {/* Parallax Content Container */}
-      <motion.div
-        style={{ y: textY, opacity }}
+      <div
+        ref={textRef}
         className="relative z-20 text-center max-w-4xl px-6 md:px-12 flex flex-col items-center justify-center pt-28 md:pt-36 pb-12"
       >
 
@@ -126,7 +159,7 @@ export default function Hero() {
             <Play className="w-3.5 h-3.5 fill-white text-white" />
           </a>
         </motion.div>
-      </motion.div>
+      </div>
 
       {/* Down Scroll Indicator */}
       <motion.div

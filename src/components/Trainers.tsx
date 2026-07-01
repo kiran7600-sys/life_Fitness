@@ -4,6 +4,12 @@ import { useEffect, useRef, useState, useCallback } from "react";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
+import { gsap } from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+// Register ScrollTrigger
+gsap.registerPlugin(ScrollTrigger);
 
 interface Trainer {
   id: number;
@@ -49,6 +55,47 @@ export default function Trainers() {
   const [isHovered, setIsHovered] = useState(false);
   const [isDesktop, setIsDesktop] = useState(false);
   const autoPlayRef = useRef<(() => void) | null>(null);
+
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const headerRef = useRef<HTMLDivElement>(null);
+
+  // GSAP ScrollTrigger Scroll entrance reveal
+  useGSAP(() => {
+    if (!sectionRef.current) return;
+
+    // Header animate
+    gsap.fromTo(
+      sectionRef.current.querySelectorAll(".reveal-header"),
+      { y: 30, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 0.8,
+        stagger: 0.1,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: headerRef.current,
+          start: "top 85%",
+        },
+      }
+    );
+
+    // Slider container animate
+    gsap.fromTo(
+      sectionRef.current.querySelector(".trainers-slider-wrapper"),
+      { y: 40, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 0.9,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: ".trainers-slider-wrapper",
+          start: "top 85%",
+        },
+      }
+    );
+  }, { scope: sectionRef });
 
   useEffect(() => {
     setIsDesktop(window.innerWidth >= 1024);
@@ -114,22 +161,22 @@ export default function Trainers() {
   };
 
   return (
-    <section id="trainers" className="scroll-mt-24 py-24 md:py-32 bg-deep-charcoal/30 relative overflow-hidden">
+    <section ref={sectionRef} id="trainers" className="scroll-mt-24 py-24 md:py-32 bg-deep-charcoal/30 relative overflow-hidden">
       {/* Decorative grids */}
       <div className="absolute inset-0 bg-[radial-gradient(rgba(255,255,255,0.01)_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+        <div ref={headerRef} className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
           <div>
-            <span className="text-xs font-heading font-extrabold uppercase tracking-[0.3em] text-electric-lime flex items-center gap-2">
+            <span className="reveal-header text-xs font-heading font-extrabold uppercase tracking-[0.3em] text-electric-lime flex items-center gap-2">
               <Sparkles className="w-3.5 h-3.5 fill-electric-lime" />
               ELITE COACHES
             </span>
-            <h2 className="mt-3 font-heading font-black text-4xl md:text-6xl uppercase tracking-tighter text-white">
+            <h2 className="reveal-header mt-3 font-heading font-black text-4xl md:text-6xl uppercase tracking-tighter text-white">
               MEET THE <span className="text-neon-orange">TRAINERS</span>
             </h2>
-            <div className="w-24 h-1 bg-electric-lime mt-4 origin-left" />
+            <div className="reveal-header w-24 h-1 bg-electric-lime mt-4 origin-left" />
           </div>
 
           {/* Carousel Controls (Desktop Only) */}
@@ -158,7 +205,7 @@ export default function Trainers() {
           className="relative"
         >
           {/* Mobile Stacked Grid & Desktop Sliding */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:flex lg:flex-row items-center gap-8 justify-center overflow-hidden py-4">
+          <div className="trainers-slider-wrapper grid grid-cols-1 md:grid-cols-2 lg:flex lg:flex-row items-center gap-8 justify-center overflow-hidden py-4 opacity-0">
             {trainers.map((trainer, idx) => {
               // On desktop, we highlight the active slider card but show others as slide-able
               const isActive = idx === activeIndex;

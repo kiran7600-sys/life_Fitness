@@ -1,8 +1,14 @@
 "use client";
 
+import { useRef } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { Star, MessageSquareQuote, Check } from "lucide-react";
+import { gsap } from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 interface TestimonialTile {
   type: "text";
@@ -31,6 +37,9 @@ interface ImageTile {
 type Tile = TestimonialTile | MetricTile | ImageTile;
 
 export default function WallOfFame() {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const titleRef = useRef<HTMLDivElement>(null);
+
   const tiles: Tile[] = [
     {
       type: "text",
@@ -90,59 +99,71 @@ export default function WallOfFame() {
     },
   ];
 
-  const gridVariants = {
-    hidden: {},
-    visible: {
-      transition: {
-        staggerChildren: 0.08,
-      },
-    },
-  };
+  // GSAP ScrollTrigger Animations
+  useGSAP(() => {
+    if (!sectionRef.current) return;
 
-  const tileVariants = {
-    hidden: { opacity: 0, scale: 0.95, y: 25 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      y: 0,
-      transition: { duration: 0.5, ease: "easeOut" as const },
-    },
-  };
+    // Header animate
+    gsap.fromTo(
+      sectionRef.current.querySelectorAll(".reveal-header"),
+      { y: 30, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 0.8,
+        stagger: 0.1,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: titleRef.current,
+          start: "top 85%",
+        },
+      }
+    );
+
+    // Masonry grid reveal
+    gsap.fromTo(
+      sectionRef.current.querySelector(".masonry-grid"),
+      { y: 40, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 0.9,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: ".masonry-grid",
+          start: "top 85%",
+        },
+      }
+    );
+  }, { scope: sectionRef });
 
   return (
-    <section id="reviews" className="scroll-mt-24 py-24 md:py-32 bg-black relative overflow-hidden">
+    <section ref={sectionRef} id="reviews" className="scroll-mt-24 py-24 md:py-32 bg-black relative overflow-hidden">
       {/* Background Gradients */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-neon-orange/5 rounded-full blur-[160px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-20">
-          <span className="text-xs font-heading font-extrabold uppercase tracking-[0.3em] text-neon-orange">
+        <div ref={titleRef} className="text-center max-w-3xl mx-auto mb-20">
+          <span className="reveal-header text-xs font-heading font-extrabold uppercase tracking-[0.3em] text-neon-orange block">
             Wall of Fame
           </span>
-          <h2 className="mt-3 font-heading font-black text-4xl md:text-6xl uppercase tracking-tighter text-white">
+          <h2 className="reveal-header mt-3 font-heading font-black text-4xl md:text-6xl uppercase tracking-tighter text-white">
             TRANSFORMATIONS & <span className="text-stroke-orange font-black">STORIES</span>
           </h2>
-          <div className="w-24 h-1 bg-neon-orange mx-auto mt-6" />
+          <div className="reveal-header w-24 h-1 bg-neon-orange mx-auto mt-6" />
         </div>
 
         {/* Masonry Columns Grid */}
-        <motion.div
-          variants={gridVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          className="columns-2 md:columns-3 lg:columns-4 gap-6 space-y-6"
-        >
+        <div className="masonry-grid columns-2 md:columns-3 lg:columns-4 gap-6 space-y-6 opacity-0">
           {tiles.map((tile, idx) => {
             if (tile.type === "text") {
               const isOrange = tile.accent === "orange";
               return (
                 <motion.div
                   key={idx}
-                  variants={tileVariants}
                   whileHover={{ y: -6 }}
-                  className={`break-inside-avoid mb-6 p-6 rounded-2xl bg-deep-charcoal border border-white/5 glow-orange-hover hover:border-neon-orange/40 hover:bg-black/60 transition-all duration-300 group`}
+                  className="break-inside-avoid mb-6 p-6 rounded-2xl bg-deep-charcoal border border-white/5 glow-orange-hover hover:border-neon-orange/40 hover:bg-black/60 transition-all duration-300 group"
                 >
                   <div className="flex items-center justify-between mb-4">
                     <MessageSquareQuote className={`w-8 h-8 ${isOrange ? "text-neon-orange" : "text-electric-lime"}`} />
@@ -172,7 +193,6 @@ export default function WallOfFame() {
               return (
                 <motion.div
                   key={idx}
-                  variants={tileVariants}
                   whileHover={{ y: -6 }}
                   className="break-inside-avoid mb-6 p-6 rounded-2xl bg-gradient-to-br from-deep-charcoal to-black border border-white/5 flex flex-col justify-between hover:border-electric-lime/30 transition-all duration-300 group"
                 >
@@ -205,7 +225,6 @@ export default function WallOfFame() {
               return (
                 <motion.div
                   key={idx}
-                  variants={tileVariants}
                   className="break-inside-avoid mb-6 rounded-2xl bg-deep-charcoal border border-white/5 overflow-hidden group cursor-pointer"
                 >
                   {/* Side by side image layout */}
@@ -253,7 +272,7 @@ export default function WallOfFame() {
 
             return null;
           })}
-        </motion.div>
+        </div>
 
         {/* Google Reviews Call To Action */}
         <div className="mt-16 text-center">
@@ -261,9 +280,6 @@ export default function WallOfFame() {
             href="https://google.com"
             target="_blank"
             rel="noopener noreferrer"
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="inline-flex items-center gap-3 px-8 py-4 font-heading text-sm font-bold uppercase tracking-wider text-black bg-white rounded-full shadow-[0_0_20px_rgba(255,255,255,0.15)] transition-all duration-300 hover:bg-neon-orange hover:shadow-[0_0_25px_rgba(255,107,26,0.5)] group"
