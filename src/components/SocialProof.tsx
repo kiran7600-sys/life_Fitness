@@ -106,10 +106,10 @@ export default function SocialProof() {
           </div>
           <div>
             <div className="text-lg md:text-xl font-heading font-black text-white hover:text-neon-orange transition-colors">
-              Prahladnagar
+              Pimpalgaon
             </div>
             <div className="text-xs uppercase tracking-wider text-off-white/50 font-semibold mt-0.5">
-              Ahmedabad, Gujarat
+              Nashik, Maharashtra
             </div>
           </div>
         </div>

@@ -4,19 +4,19 @@ import SmoothScroll from "@/components/SmoothScroll";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Life Fitness Pro | Premium Gym & Fitness Center in Prahladnagar, Ahmedabad",
-  description: "Ahmedabad's premier cinematic fitness destination in Prahladnagar. State-of-the-art strength training, CrossFit, Zumba, yoga, personal training, and recovery. Free trials available.",
-  keywords: ["gym in Ahmedabad", "fitness center Prahladnagar", "personal training Ahmedabad", "CrossFit Prahladnagar", "Life Fitness Pro", "best gym in Ahmedabad", "yoga classes Ahmedabad"],
+  title: "Fitness Pro | Premium Gym & Fitness Center in Pimpalgaon",
+  description: "Pimpalgaon's premier cinematic fitness destination. State-of-the-art strength training, CrossFit, Zumba, yoga, personal training, and recovery. Free trials available.",
+  keywords: ["gym in Pimpalgaon", "fitness center Pimpalgaon", "personal training Pimpalgaon", "CrossFit Pimpalgaon", "Fitness Pro", "best gym in Pimpalgaon", "yoga classes Pimpalgaon"],
   openGraph: {
-    title: "Life Fitness Pro | Premium Gym in Prahladnagar, Ahmedabad",
+    title: "Fitness Pro | Premium Gym in Pimpalgaon",
     description: "Experience state-of-the-art strength training, CrossFit, Zumba, and recovery. Sign up for a free trial class today.",
     type: "website",
     locale: "en_IN",
-    url: "https://lifetfitnesspro.com",
-    siteName: "Life Fitness Pro",
+    url: "https://fitnesspro.com",
+    siteName: "Fitness Pro",
   },
   alternates: {
-    canonical: "https://lifetfitnesspro.com",
+    canonical: "https://fitnesspro.com",
   },
   robots: {
     index: true,
@@ -32,24 +32,24 @@ export default function RootLayout({
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "ExerciseGym",
-    "name": "Life Fitness Pro",
-    "image": "https://lifetfitnesspro.com/images/gym-hero-poster.webp",
-    "@id": "https://lifetfitnesspro.com/#gym",
-    "url": "https://lifetfitnesspro.com",
-    "telephone": "+919898989898",
+    "name": "Fitness Pro",
+    "image": "https://fitnesspro.com/images/gym-hero-poster.webp",
+    "@id": "https://fitnesspro.com/#gym",
+    "url": "https://fitnesspro.com",
+    "telephone": "+919999999999",
     "priceRange": "$$",
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "105-107, 1st Floor, Ratnanjali Square, Prernatirth Derasar Rd, Jodhpur Village",
-      "addressLocality": "Ahmedabad",
-      "addressRegion": "Gujarat",
-      "postalCode": "380015",
+      "streetAddress": "123 Demo Street, Demo Block",
+      "addressLocality": "Pimpalgaon",
+      "addressRegion": "Maharashtra",
+      "postalCode": "422209",
       "addressCountry": "IN"
     },
     "geo": {
       "@type": "GeoCoordinates",
-      "latitude": 23.0135,
-      "longitude": 72.5126
+      "latitude": 20.1706,
+      "longitude": 73.9845
     },
     "openingHoursSpecification": [
       {

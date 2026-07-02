@@ -43,7 +43,7 @@ export default function WallOfFame() {
   const tiles: Tile[] = [
     {
       type: "text",
-      quote: "Life Fitness Pro completely changed how I look at training. The coaches here don't just count reps; they analyze movement patterns. Best facility in Ahmedabad!",
+      quote: "Fitness Pro completely changed how I look at training. The coaches here don't just count reps; they analyze movement patterns. Best facility in Pimpalgaon!",
       name: "Raj Patel",
       category: "Strength Journey",
       accent: "orange",

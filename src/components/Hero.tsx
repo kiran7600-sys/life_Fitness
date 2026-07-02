@@ -80,7 +80,7 @@ export default function Hero() {
       {/* Cinematic Bottom Letterbox Bar */}
       <div className="absolute bottom-0 left-0 w-full h-[8vh] bg-black z-30 flex items-center justify-between px-8 border-t border-white/5">
         <span className="text-[10px] tracking-[0.3em] uppercase text-white/40 font-heading">
-          Life Fitness Pro © 2026
+          Fitness Pro © 2026
         </span>
         <div className="flex items-center gap-2">
           <span className="w-1.5 h-1.5 rounded-full bg-electric-lime animate-pulse" />
@@ -121,7 +121,7 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.1, ease: [0.34, 1.56, 0.64, 1] }}
           className="font-heading font-black text-4xl sm:text-6xl md:text-8xl uppercase tracking-tighter leading-[0.9] text-white select-none"
         >
-          {"AHMEDABAD'S PREMIER"} <br />
+          {"PIMPALGAON'S PREMIER"} <br />
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-neon-orange to-red-500 drop-shadow-[0_4px_12px_rgba(255,107,26,0.35)]">
             FITNESS DESTINATION
           </span>

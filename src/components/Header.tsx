@@ -50,7 +50,7 @@ export default function Header() {
                 <Flame className="w-6 h-6 text-black fill-black" />
               </div>
               <span className="font-heading font-extrabold text-2xl tracking-wider uppercase bg-gradient-to-r from-white via-white to-neon-orange bg-clip-text text-transparent group-hover:to-electric-lime transition-all duration-500">
-                LIFE FITNESS <span className="text-neon-orange group-hover:text-electric-lime transition-colors duration-500">PRO</span>
+                FITNESS <span className="text-neon-orange group-hover:text-electric-lime transition-colors duration-500">PRO</span>
               </span>
             </motion.div>
           </a>

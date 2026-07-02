@@ -36,10 +36,10 @@ export default function Footer() {
           <div className="lg:col-span-5 flex flex-col justify-between">
             <div>
               <span className="font-heading font-black text-2xl tracking-wider text-white uppercase">
-                LIFE FITNESS <span className="text-neon-orange">PRO</span>
+                FITNESS <span className="text-neon-orange">PRO</span>
               </span>
               <p className="mt-4 text-sm md:text-base text-off-white/60 font-light font-sans max-w-sm leading-relaxed">
-                {"Ahmedabad's leading luxury health facility. Equipped with bio-mechanically precise gear, elite guidance, and recovery services."}
+                {"Pimpalgaon's leading luxury health facility. Equipped with bio-mechanically precise gear, elite guidance, and recovery services."}
               </p>
             </div>
 
@@ -170,7 +170,7 @@ export default function Footer() {
               <div className="flex items-start gap-3 mb-4">
                 <MapPin className="w-5 h-5 text-neon-orange mt-1 flex-shrink-0" />
                 <p className="text-sm font-sans text-off-white/70 leading-relaxed font-light">
-                  105-107, 1st Floor, Ratnanjali Square, Prernatirth Derasar Rd, Jodhpur Village, Ahmedabad, Gujarat 380015
+                  123 Demo Street, Demo Block, Pimpalgaon, Maharashtra 422209
                 </p>
               </div>
             </div>
@@ -185,7 +185,7 @@ export default function Footer() {
                 allowFullScreen={false}
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                title="Life Fitness Pro Location Map"
+                title="Fitness Pro Location Map"
               />
             </div>
           </div>
@@ -195,7 +195,7 @@ export default function Footer() {
         {/* Footer Bottom Block */}
         <div className="mt-12 flex flex-col md:flex-row items-center justify-between gap-6 text-xs text-off-white/40 border-t border-white/5 pt-8">
           <div className="flex flex-col md:flex-row gap-2 md:gap-4 items-center">
-            <span>&copy; {currentYear} Life Fitness Pro. All Rights Reserved.</span>
+            <span>&copy; {currentYear} Fitness Pro. All Rights Reserved.</span>
             <span className="hidden md:inline text-white/20">|</span>
             <span>
               Developed by{" "}

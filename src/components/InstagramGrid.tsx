@@ -148,7 +148,7 @@ export default function InstagramGrid() {
               {/* Image with blur loading placeholder representation */}
               <Image
                 src={item.image}
-                alt="Life Fitness Pro Instagram Post"
+                alt="Fitness Pro Instagram Post"
                 fill
                 sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
                 className="object-cover group-hover:scale-110 transition-transform duration-700 ease-out group-hover:brightness-[0.75]"
